@@ -18,7 +18,7 @@ const (
 	NONE                  // 关闭日志
 )
 
-var logLevel = INFO
+var defLogLevel = INFO
 var logWriter io.Writer
 var logger *log.Logger
 
@@ -32,7 +32,7 @@ func init() {
 }
 
 func logout(level LogLevel, format string, v ...any) {
-	if logLevel < level {
+	if defLogLevel > level {
 		return
 	}
 
@@ -64,11 +64,11 @@ func SetOutput(w io.Writer) {
 }
 
 func SetLevel(level LogLevel) {
-	logLevel = level
+	defLogLevel = level
 }
 
 func GetLevel() LogLevel {
-	return logLevel
+	return defLogLevel
 }
 
 func SetFlags(flags int) {
@@ -81,14 +81,14 @@ func Fatalf(format string, v ...any) {
 }
 
 func Printf(format string, v ...any) {
-	if logLevel == NONE {
+	if defLogLevel == NONE {
 		return
 	}
 	logger.Output(2, fmt.Sprintf(format, v...))
 }
 
 func Println(v ...any) {
-	if logLevel == NONE {
+	if defLogLevel == NONE {
 		return
 	}
 
