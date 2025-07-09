@@ -1,2 +1,2 @@
 # gslog
-golang simple levle log
+golang simple level log
